@@ -48,16 +48,18 @@ async function initSite() {
     });
   }
 
-  // 子场景按钮切换
+  // ✅ 修复子场景按钮高亮
   document.addEventListener('click', e => {
-    if (!e.target.matches('.category-btn')) return;
-    const btn = e.target;
-    btn.parentElement.querySelectorAll('.category-btn').forEach(b => b.classList.remove('category-btn-active'));
+    const btn = e.target.closest('.category-btn');
+    if (!btn) return;
+    btn.closest('.subcategory-nav')
+      ?.querySelectorAll('.category-btn')
+      .forEach(b => b.classList.remove('category-btn-active'));
     btn.classList.add('category-btn-active');
+
     const subId = btn.dataset.subcategory;
-    btn.closest('section').querySelectorAll('.subcategory-content').forEach(div => {
-      div.classList.toggle('hidden', div.id !== subId);
-    });
+    btn.closest('section').querySelectorAll('.subcategory-content')
+       .forEach(div => div.classList.toggle('hidden', div.id !== subId));
   });
 
   styleAndBindDeviceCards();
@@ -71,9 +73,12 @@ async function initSite() {
 function styleAndBindDeviceCards() {
   document.querySelectorAll('.device-card').forEach(card => {
     card.classList.add(
-      'bg-white','rounded-lg','p-4','shadow-md','transition','transform',
-      'hover:scale-105','hover:bg-blue-50','cursor-pointer','flex','items-center','gap-3'
+      'bg-white', 'rounded-lg', 'p-4', 'shadow-md',
+      'transition', 'transform', 'hover:scale-105',
+      'hover:bg-blue-50', 'cursor-pointer',
+      'flex', 'flex-col', 'items-center', 'text-center', 'gap-2'
     );
+
     const deviceId = card.dataset.device || card.dataset.deviceId;
     if (deviceId) {
       card.dataset.device = deviceId;
