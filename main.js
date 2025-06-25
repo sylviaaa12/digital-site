@@ -1,92 +1,99 @@
-// main.js（增强主场景按钮、子场景按钮颜色和设备图标）
+// -------------------------------------------------
+// main.js · 数字生活场景前端交互脚本（最新版）
+// -------------------------------------------------
+// 1. 动态注入片段（navbar、各场景、modal）
+// 2. 解析 products.csv → productMap
+// 3. 主场景 / 子场景切换 + 高亮
+// 4. 设备卡片插图标 + 样式 + 弹出产品列表
+// -------------------------------------------------
 
+/* ---------- 0. 片段注入 ---------- */
+async function loadFragment(id, url) {
+  const res = await fetch(url);
+  document.getElementById(id).innerHTML = await res.text();
+}
+
+Promise.all([
+  loadFragment('navbar',         'navbar.html'),
+  loadFragment('device-modal',   'modal.html'),
+  loadFragment('scene-home',     'scenes/home.html'),
+  loadFragment('scene-community','scenes/community.html'),
+  loadFragment('scene-city',     'scenes/city.html')
+]).then(initSite);
+
+/* ---------- 1. 初始化 ---------- */
 async function initSite() {
-  await loadProducts();
-  loadNavbar();
-  loadModal();
-  loadScene('scene-home', 'scenes/home.html');
-  loadScene('scene-community', 'scenes/community.html');
-  loadScene('scene-city', 'scenes/city.html');
-  setupNavigation();
-}
+  if (typeof loadProducts === 'function') await loadProducts();
 
-function loadNavbar() {
-  fetch('navbar.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('navbar').innerHTML = html;
-    });
-}
-
-function loadModal() {
-  fetch('modal.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('device-modal').innerHTML = html;
-      document.getElementById('closeModal').addEventListener('click', hideModal);
-    });
-}
-
-function loadScene(containerId, file) {
-  fetch(file)
-    .then(res => res.text())
-    .then(html => {
-      const container = document.getElementById(containerId);
-      container.innerHTML = html;
-
-      container.querySelectorAll('[data-device], [data-device-id]').forEach(el => {
-        const id = el.getAttribute('data-device') || el.getAttribute('data-device-id');
-        el.setAttribute('data-device', id);
-        el.classList.add(
-          'bg-white', 'rounded-lg', 'p-4', 'shadow-md', 'transition', 'transform',
-          'hover:scale-105', 'hover:bg-blue-50', 'cursor-pointer', 'device-card', 'flex', 'items-center', 'gap-3'
-        );
-
-        // 设备图标加入前缀
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-cube text-blue-500';
-        el.prepend(icon);
-
-        el.addEventListener('click', () => showDevice(id));
-      });
-    });
-}
-
-function setupNavigation() {
-  document.addEventListener('click', e => {
-    // 主场景切换
-    if (e.target.matches('.nav-link')) {
+  // 主场景切换
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-link-active'));
-      e.target.classList.add('nav-link-active');
-
-      const target = e.target.dataset.category;
-      ['home', 'community', 'city'].forEach(c => {
-        const scene = document.getElementById(`scene-${c}`);
-        scene.classList.toggle('hidden', c !== target);
-        const section = scene.querySelector('section');
-        if (section) section.classList.remove('hidden');
+      link.classList.add('nav-link-active');
+      const target = link.dataset.category;
+      ['home','community','city'].forEach(c => {
+        document.getElementById(`scene-${c}`).classList.toggle('hidden', c !== target);
       });
+    });
+  });
+
+  // 移动端菜单
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('invisible');
+      mobileMenu.classList.toggle('opacity-0');
+      mobileMenu.classList.toggle('-translate-y-full');
+    });
+  }
+
+  // 子场景按钮切换
+  document.addEventListener('click', e => {
+    if (!e.target.matches('.category-btn')) return;
+    const btn = e.target;
+    btn.parentElement.querySelectorAll('.category-btn').forEach(b => b.classList.remove('category-btn-active'));
+    btn.classList.add('category-btn-active');
+    const subId = btn.dataset.subcategory;
+    btn.closest('section').querySelectorAll('.subcategory-content').forEach(div => {
+      div.classList.toggle('hidden', div.id !== subId);
+    });
+  });
+
+  styleAndBindDeviceCards();
+
+  document.getElementById('device-modal').addEventListener('click', e => {
+    if (e.target.id === 'device-modal' || e.target.id === 'closeModal') hideModal();
+  });
+}
+
+/* ---------- 2. 设备卡片样式 + 点击 + 插入图标 ---------- */
+function styleAndBindDeviceCards() {
+  document.querySelectorAll('.device-card').forEach(card => {
+    card.classList.add(
+      'bg-white','rounded-lg','p-4','shadow-md','transition','transform',
+      'hover:scale-105','hover:bg-blue-50','cursor-pointer','flex','items-center','gap-3'
+    );
+    const deviceId = card.dataset.device || card.dataset.deviceId;
+    if (deviceId) {
+      card.dataset.device = deviceId;
+      card.addEventListener('click', () => showDevice(deviceId));
     }
-
-    // 子场景按钮切换
-    if (e.target.matches('.category-btn')) {
-      const btn = e.target;
-      btn.parentElement.querySelectorAll('.category-btn')
-         .forEach(b => b.classList.remove('bg-primary', 'text-white'));
-      btn.classList.add('bg-primary', 'text-white');
-
-      const subId = btn.dataset.subcategory;
-      btn.closest('section').querySelectorAll('.subcategory-content')
-         .forEach(div => div.classList.toggle('hidden', div.id !== subId));
+    // 插入图标
+    if (!card.querySelector('i.device-icon')) {
+      const icon = document.createElement('i');
+      icon.className = 'fa fa-cube device-icon';
+      card.insertBefore(icon, card.firstChild);
     }
   });
 }
 
+/* ---------- 3. 模态框展示 ---------- */
 function showDevice(deviceId) {
-  const modal     = document.getElementById('deviceModal');
-  const box       = document.getElementById('modalProductList');
-  const nameBox   = document.getElementById('modalDeviceName');
-  const iconBox   = document.querySelector('#modalDeviceIcon i');
+  const modal   = document.getElementById('device-modal');
+  const box     = document.getElementById('modalProductList');
+  const nameBox = document.getElementById('modalDeviceName');
+  const iconBox = document.querySelector('#modalDeviceIcon i');
 
   const products = (window.productMap && window.productMap[deviceId]) || [];
   nameBox.textContent = products[0]?.deviceId || deviceId || '未知设备';
@@ -98,37 +105,31 @@ function showDevice(deviceId) {
   };
   iconBox.className = `fa ${iconMap[deviceId] || 'fa-box-open'} text-4xl text-primary`;
 
-  box.innerHTML = '';
-  if (products.length === 0) {
-    box.innerHTML = `<p class="text-center text-gray-500">当前设备暂无产品信息</p>`;
-  } else {
-    products.forEach(p => {
-      box.insertAdjacentHTML('beforeend', `
-        <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg shadow-sm">
-          <div class="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
-            <div class="flex-1">
-              <h4 class="text-lg font-bold text-gray-800">${p.name || '产品名称'}</h4>
-              <p class="text-sm text-gray-600 mt-1">${p.description || ''}</p>
-              <p class="text-sm text-gray-500 mt-1">
-                品牌：${p.brand || '—'} &nbsp;&nbsp; 型号：${p.model || '—'}
-              </p>
-              <p class="text-primary font-bold mt-2">${p.price || ''}</p>
-            </div>
-            ${p.imageUrl ? `<img src="${p.imageUrl}" alt="产品图片" class="w-24 h-24 object-cover rounded-md border">` : ''}
-          </div>
-        </div>
-      `);
-    });
-  }
+  box.innerHTML = products.length === 0
+    ? '<p class="text-center text-gray-500">当前设备暂无产品信息</p>'
+    : products.map(p => productCardHTML(p)).join('');
 
-  modal.classList.remove('pointer-events-none', 'opacity-0');
+  modal.classList.remove('pointer-events-none','opacity-0');
   modal.querySelector('.modal-content').classList.add('scale-100');
 }
 
 function hideModal() {
-  const modal = document.getElementById('deviceModal');
-  modal.classList.add('pointer-events-none', 'opacity-0');
+  const modal = document.getElementById('device-modal');
+  modal.classList.add('pointer-events-none','opacity-0');
   modal.querySelector('.modal-content').classList.remove('scale-100');
 }
 
-initSite();
+function productCardHTML(p) {
+  return `
+    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg shadow-sm">
+      <div class="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
+        <div class="flex-1">
+          <h4 class="text-lg font-bold text-gray-800">${p.name || '产品名称'}</h4>
+          <p class="text-sm text-gray-600 mt-1">${p.description || ''}</p>
+          <p class="text-sm text-gray-500 mt-1">品牌：${p.brand || '—'} &nbsp;&nbsp; 型号：${p.model || '—'}</p>
+          <p class="text-primary font-bold mt-2">${p.price || ''}</p>
+        </div>
+        ${p.imageUrl ? `<img src="${p.imageUrl}" alt="产品图片" class="w-24 h-24 object-cover rounded-md border">` : ''}
+      </div>
+    </div>`;
+}
