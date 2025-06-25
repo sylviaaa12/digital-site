@@ -1,47 +1,73 @@
-<section id="home" class="slide-in block">
-  <div class="container mx-auto px-4 py-8">
-
+<section id="community" class="slide-in hidden">
+<div class="container mx-auto px-4 py-8">
     <div class="text-center mb-8">
-      <i class="fa-solid fa-home scene-icon"></i>
-      <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary">数字家庭</h2>
-      <p class="text-neutral-dark mt-2">体验 5G 带来的智能生活</p>
+        <!-- 社区场景图标 -->
+        <i class="fa-solid fa-building scene-icon"></i>
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary">数字社区</h2>
+        <p class="text-neutral-dark mt-2">5G赋能的智慧社区生活</p>
     </div>
 
     <!-- 分类按钮 -->
     <div class="flex flex-wrap justify-center gap-4 mb-12">
-      <button class="category-btn category-btn-active" data-subcategory="security">家用安防</button>
-      <button class="category-btn" data-subcategory="smartHome">智能家居</button>
-      <button class="category-btn" data-subcategory="health">家庭健康</button>
-      <button class="category-btn" data-subcategory="education">家庭教育</button>
+        <button class="category-btn category-btn-active" data-subcategory="communitySecurity">智慧安防</button>
+        <button class="category-btn" data-subcategory="property">智慧物业</button>
+        <button class="category-btn" data-subcategory="electricity">智慧电力</button>
+        <button class="category-btn" data-subcategory="gas">智慧燃气</button>
+        <button class="category-btn" data-subcategory="education">智慧教育</button>
+        <button class="category-btn" data-subcategory="elderlyCare">智慧养老</button>
     </div>
 
-    <!-- 家用安防 -->
-    <div id="security" class="subcategory-content">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        <div class="device-card" data-device="surveillanceCamera">
-          <div class="flex items-center justify-center h-24 mb-4">
-            <i class="fa fa-video-camera text-primary device-icon"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-2 text-center">智能监控摄像头</h3>
-          <p class="text-gray-600 text-center">24 小时实时监控，异常情况自动报警</p>
-        </div>
+    <!-- 智慧安防内容 -->
+    <div id="communitySecurity" class="subcategory-content">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="device-card" data-device="communityCamera">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-video-camera text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">社区监控系统</h3>
+                <p class="text-gray-600 text-center">高清摄像头覆盖，人脸识别，异常行为检测</p>
+            </div>
 
-        <div class="device-card" data-device="doorLock">
-          <div class="flex items-center justify-center h-24 mb-4">
-            <i class="fa fa-lock text-primary device-icon"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-2 text-center">智能门锁</h3>
-          <p class="text-gray-600 text-center">指纹、密码、手机多重开锁方式</p>
-        </div>
+            <div class="device-card" data-device="communityAccessControl">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-id-card text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">社区门禁系统</h3>
+                <p class="text-gray-600 text-center">业主身份识别，访客预约，远程开门</p>
+            </div>
 
-        <div class="device-card" data-device="alarmSystem">
-          <div class="flex items-center justify-center h-24 mb-4">
-            <i class="fa fa-bell text-primary device-icon"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-2 text-center">智能报警系统</h3>
-          <p class="text-gray-600 text-center">烟雾、燃气、漏水检测，一键求助</p>
+            <div class="device-card" data-device="emergencyResponse">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-ambulance text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">紧急响应系统</h3>
+                <p class="text-gray-600 text-center">一键求助，快速响应，联动社区安保</p>
+            </div>
+
+            <div class="device-card" data-device="fireAlarm">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-fire text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能火警系统</h3>
+                <p class="text-gray-600 text-center">烟雾检测，自动报警，联动消防系统</p>
+            </div>
+
+            <div class="device-card" data-device="environmentalMonitoring">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-leaf text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">环境监测系统</h3>
+                <p class="text-gray-600 text-center">空气质量、噪音、温湿度实时监测</p>
+            </div>
+
+            <div class="device-card" data-device="patrolRobot">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-robot text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能巡逻机器人</h3>
+                <p class="text-gray-600 text-center">24小时自动巡逻，异常情况实时上报</p>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- 智慧物业场景 -->
