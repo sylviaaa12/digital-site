@@ -1,17 +1,20 @@
 <nav class="flex items-center justify-between p-4 bg-white shadow">
   <div class="text-xl font-bold text-primary">数字生活场景</div>
+
   <div class="hidden md:flex gap-4">
     <button class="nav-link nav-link-active" data-category="home">数字家庭</button>
     <button class="nav-link" data-category="community">数字社区</button>
     <button class="nav-link" data-category="city">数字城市</button>
   </div>
+
   <div class="md:hidden">
     <button id="mobile-menu-btn">☰</button>
   </div>
 </nav>
 
 <!-- 移动端折叠菜单 -->
-<div id="mobile-menu" class="md:hidden invisible opacity-0 -translate-y-full transition-all">
+<div id="mobile-menu"
+     class="md:hidden invisible opacity-0 -translate-y-full transition-all">
   <button class="nav-link block w-full text-left" data-category="home">数字家庭</button>
   <button class="nav-link block w-full text-left" data-category="community">数字社区</button>
   <button class="nav-link block w-full text-left" data-category="city">数字城市</button>
