@@ -43,6 +43,15 @@
   <!-- 设备信息弹窗 -->
   <div id="device-modal"></div>
 
+  <script>
+  fetch('modal.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('modal-container').innerHTML = html;
+    });
+</script>
+  
+
   <!-- 业务脚本 -->
   <script src="data.js"></script>
   <script src="main.js"></script>
