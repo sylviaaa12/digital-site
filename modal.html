@@ -1,23 +1,17 @@
-<div id="device-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
-  <div class="modal-content bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 transform scale-95 transition-transform duration-300">
-
-    <!-- Modal Header -->
+<div id="device-modal"
+     class="fixed inset-0 bg-black/40 flex items-center justify-center
+            opacity-0 pointer-events-none transition-all">
+  <div class="modal-content bg-white rounded-lg p-6 w-full max-w-2xl
+              transform scale-95 transition-all">
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-3">
         <div id="modalDeviceIcon">
           <i class="fa fa-box-open text-4xl text-primary"></i>
         </div>
-        <h3 id="modalDeviceName" class="text-2xl font-bold text-primary">设备名称</h3>
+        <h3 id="modalDeviceName" class="text-xl font-bold"></h3>
       </div>
-      <button id="closeModal" class="text-gray-500 hover:text-gray-800">
-        <i class="fa fa-times text-xl"></i>
-      </button>
+      <button id="closeModal">✕</button>
     </div>
-
-    <!-- Modal Body -->
-    <div id="modalProductList" class="space-y-4">
-      <!-- 产品卡片将在这里被插入 -->
-    </div>
-
+    <div id="modalProductList" class="space-y-4"></div>
   </div>
 </div>
