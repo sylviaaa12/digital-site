@@ -1,15 +1,12 @@
 /* 主导航按钮 */
-.nav-link {
+.nav-link{
   display:inline-block;
   margin-right:1rem;
   padding:0.5rem 1rem;
   border-radius:0.5rem;
   transition:.3s;
 }
-.nav-link-active{
-  background:#2563eb;
-  color:#fff;
-}
+.nav-link-active{background:#2563eb;color:#fff}
 
 /* 子场景按钮 */
 .category-btn{
@@ -20,10 +17,7 @@
   background:#f0f0f0;
   transition:.2s;
 }
-.category-btn-active{
-  background:#2563eb;
-  color:#fff;
-}
+.category-btn-active{background:#2563eb;color:#fff}
 
 /* 设备卡片 */
 .device-card{
@@ -39,11 +33,8 @@
   cursor:pointer;
   transition:transform .2s,background .2s;
 }
-.device-card:hover{
-  background:#e0f2fe;
-  transform:scale(1.05);
-}
-.device-icon{
-  font-size:1.5rem;
-  color:#2563eb;
-}
+.device-card:hover{background:#e0f2fe;transform:scale(1.05)}
+.device-icon{font-size:1.5rem;color:#2563eb}
+
+/* 场景顶部图标 */
+.scene-icon{font-size:3rem}
