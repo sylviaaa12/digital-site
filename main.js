@@ -39,8 +39,9 @@ async function initSite() {
 
   // 子场景按钮（事件委托）
   document.addEventListener('click', e => {
-    const btn = e.target.closest('.category-btn');
-    if (!btn) return;
+    const card = e.target.closest('.device-card');
+    if (card) showDevice(card.dataset.device);
+  });
 
     btn.closest('.subcategory-nav')
        ?.querySelectorAll('.category-btn')
