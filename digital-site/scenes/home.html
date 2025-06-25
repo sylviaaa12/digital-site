@@ -1,0 +1,206 @@
+<section id="home" class="slide-in block">
+  <div class="container mx-auto px-4 py-8">
+
+    <div class="text-center mb-8">
+      <i class="fa-solid fa-home scene-icon"></i>
+      <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary">数字家庭</h2>
+      <p class="text-neutral-dark mt-2">体验 5G 带来的智能生活</p>
+    </div>
+
+    <!-- 分类按钮 -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <button class="category-btn category-btn-active" data-subcategory="security">家用安防</button>
+      <button class="category-btn" data-subcategory="smartHome">智能家居</button>
+      <button class="category-btn" data-subcategory="health">家庭健康</button>
+      <button class="category-btn" data-subcategory="education">家庭教育</button>
+    </div>
+
+    <!-- 家用安防 -->
+    <div id="security" class="subcategory-content">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div class="device-card" data-device="surveillanceCamera">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <i class="fa fa-video-camera text-primary device-icon"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">智能监控摄像头</h3>
+          <p class="text-gray-600 text-center">24 小时实时监控，异常情况自动报警</p>
+        </div>
+
+        <div class="device-card" data-device="doorLock">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <i class="fa fa-lock text-primary device-icon"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">智能门锁</h3>
+          <p class="text-gray-600 text-center">指纹、密码、手机多重开锁方式</p>
+        </div>
+
+        <div class="device-card" data-device="alarmSystem">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <i class="fa fa-bell text-primary device-icon"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">智能报警系统</h3>
+          <p class="text-gray-600 text-center">烟雾、燃气、漏水检测，一键求助</p>
+        </div>
+      </div>
+    </div>
+    <!-- 智能家居场景 -->
+    <div id="smartHome" class="subcategory-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="device-card" data-device="smartThermostat">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-thermometer-half text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能温控器</h3>
+                <p class="text-gray-600 text-center">自动调节温度，学习用户习惯，节能环保</p>
+            </div>
+
+            <div class="device-card" data-device="smartLighting">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-lightbulb-o text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能照明系统</h3>
+                <p class="text-gray-600 text-center">语音控制、远程控制，支持场景模式和色温调节</p>
+            </div>
+
+            <div class="device-card" data-device="smartCurtain">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-columns text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能窗帘</h3>
+                <p class="text-gray-600 text-center">定时开关、光线感应，与其他设备联动</p>
+            </div>
+
+            <div class="device-card" data-device="smartSpeaker">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-volume-up text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能音箱</h3>
+                <p class="text-gray-600 text-center">语音助手，控制家电，播放音乐，查询信息</p>
+            </div>
+
+            <div class="device-card" data-device="smartTV">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-television text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能电视</h3>
+                <p class="text-gray-600 text-center">4K超高清，AI语音控制，多屏互动</p>
+            </div>
+
+            <div class="device-card" data-device="smartRefrigerator">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-snowflake-o text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能冰箱</h3>
+                <p class="text-gray-600 text-center">食材管理、健康饮食建议、在线购物</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 家庭健康场景 -->
+    <div id="health" class="subcategory-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="device-card" data-device="smartScale">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-balance-scale text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能体重秤</h3>
+                <p class="text-gray-600 text-center">测量体重、体脂、水分等多项健康指标</p>
+            </div>
+
+            <div class="device-card" data-device="bloodPressureMonitor">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-heartbeat text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能血压计</h3>
+                <p class="text-gray-600 text-center">自动测量血压，记录健康数据，异常提醒</p>
+            </div>
+
+            <div class="device-card" data-device="sleepTracker">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-bed text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能睡眠监测仪</h3>
+                <p class="text-gray-600 text-center">分析睡眠质量，提供改善建议，智能唤醒</p>
+            </div>
+
+            <div class="device-card" data-device="airQualityMonitor">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-leaf text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">空气质量监测仪</h3>
+                <p class="text-gray-600 text-center">实时监测PM2.5、甲醛等有害物质</p>
+            </div>
+
+            <div class="device-card" data-device="healthTracker">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-heartbeat text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能健康手环</h3>
+                <p class="text-gray-600 text-center">全天候监测心率、步数、运动数据</p>
+            </div>
+
+            <div class="device-card" data-device="medicineReminder">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-medkit text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能药盒</h3>
+                <p class="text-gray-600 text-center">定时提醒服药，记录用药情况，避免漏服</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 家庭教育场景 -->
+    <div id="education" class="subcategory-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="device-card" data-device="smartLearningTablet">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-tablet text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能学习平板</h3>
+                <p class="text-gray-600 text-center">个性化学习计划，AI辅导，护眼模式</p>
+            </div>
+
+            <div class="device-card" data-device="smartBookshelf">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-book text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能书架</h3>
+                <p class="text-gray-600 text-center">图书管理，阅读统计，推荐适合的书籍</p>
+            </div>
+
+            <div class="device-card" data-device="educationalRobot">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-android text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">教育机器人</h3>
+                <p class="text-gray-600 text-center">互动教学，编程启蒙，培养逻辑思维能力</p>
+            </div>
+
+            <div class="device-card" data-device="smartProjector">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-film text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能投影仪</h3>
+                <p class="text-gray-600 text-center">大屏学习，护眼模式，无线投屏</p>
+            </div>
+
+            <div class="device-card" data-device="smartDesk">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-table text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">智能书桌</h3>
+                <p class="text-gray-600 text-center">坐姿矫正，光线调节，学习时间管理</p>
+            </div>
+
+            <div class="device-card" data-device="languageLearningSystem">
+                <div class="flex items-center justify-center h-24 mb-4">
+                    <i class="fa fa-language text-primary device-icon"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-center">语言学习系统</h3>
+                <p class="text-gray-600 text-center">AI对话练习，发音纠正，词汇记忆</p>
+            </div>
+        </div>
+    </div>
+    <!-- 其余子场景 smartHome / health / education … 可继续补充 -->
+  </div>
+</section>
