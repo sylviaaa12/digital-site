@@ -1,4 +1,4 @@
-// main.js
+// main.js（增强主场景按钮、子场景按钮颜色和设备图标）
 
 async function initSite() {
   await loadProducts();
@@ -34,22 +34,19 @@ function loadScene(containerId, file) {
       const container = document.getElementById(containerId);
       container.innerHTML = html;
 
-      // 给所有设备卡片加样式和点击事件
       container.querySelectorAll('[data-device], [data-device-id]').forEach(el => {
         const id = el.getAttribute('data-device') || el.getAttribute('data-device-id');
+        el.setAttribute('data-device', id);
         el.classList.add(
-          'bg-white',
-          'rounded-lg',
-          'p-4',
-          'shadow-md',
-          'transition',
-          'transform',
-          'hover:scale-105',
-          'hover:bg-blue-50',
-          'cursor-pointer',
-          'device-card'
+          'bg-white', 'rounded-lg', 'p-4', 'shadow-md', 'transition', 'transform',
+          'hover:scale-105', 'hover:bg-blue-50', 'cursor-pointer', 'device-card', 'flex', 'items-center', 'gap-3'
         );
-        el.setAttribute('data-device', id); // 标准化属性
+
+        // 设备图标加入前缀
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-cube text-blue-500';
+        el.prepend(icon);
+
         el.addEventListener('click', () => showDevice(id));
       });
     });
@@ -57,6 +54,7 @@ function loadScene(containerId, file) {
 
 function setupNavigation() {
   document.addEventListener('click', e => {
+    // 主场景切换
     if (e.target.matches('.nav-link')) {
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-link-active'));
       e.target.classList.add('nav-link-active');
@@ -70,12 +68,12 @@ function setupNavigation() {
       });
     }
 
-    // 子场景切换
+    // 子场景按钮切换
     if (e.target.matches('.category-btn')) {
       const btn = e.target;
       btn.parentElement.querySelectorAll('.category-btn')
-         .forEach(b => b.classList.remove('category-btn-active'));
-      btn.classList.add('category-btn-active');
+         .forEach(b => b.classList.remove('bg-primary', 'text-white'));
+      btn.classList.add('bg-primary', 'text-white');
 
       const subId = btn.dataset.subcategory;
       btn.closest('section').querySelectorAll('.subcategory-content')
