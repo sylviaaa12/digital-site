@@ -39,21 +39,21 @@ async function initSite() {
 
   // 子场景按钮（事件委托）
   document.addEventListener('click', e => {
-    const card = e.target.closest('.device-card');
-    if (card) showDevice(card.dataset.device);
+    const btn = e.target.closest('.category-btn');
+    if (btn && btn.dataset.subcategory) {
+      btn.closest('.subcategory-nav')
+         ?.querySelectorAll('.category-btn')
+         .forEach(b => b.classList.remove('category-btn-active'));
+      btn.classList.add('category-btn-active');
+
+      const subId = btn.dataset.subcategory;
+      btn.closest('section')
+         .querySelectorAll('.subcategory-content')
+         .forEach(div => div.classList.toggle('hidden', div.id !== subId));
+    }
   });
 
-    btn.closest('.subcategory-nav')
-       ?.querySelectorAll('.category-btn')
-       .forEach(b => b.classList.remove('category-btn-active'));
-    btn.classList.add('category-btn-active');
-
-    const subId = btn.dataset.subcategory;
-    btn.closest('section')
-       .querySelectorAll('.subcategory-content')
-       .forEach(div => div.classList.toggle('hidden', div.id !== subId));
-  });
-
+  // 设备卡片点击绑定和样式处理
   styleAndBindCards();
 
   // 关闭弹窗
