@@ -1,50 +1,49 @@
-/* styles.css 优化版：导航、子场景按钮、设备卡片 */
-
-/* 主导航按钮样式 */
+/* 主导航按钮 */
 .nav-link {
-  display: inline-block;
-  margin-right: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: transparent;
-  transition: all 0.3s;
+  display:inline-block;
+  margin-right:1rem;
+  padding:0.5rem 1rem;
+  border-radius:0.5rem;
+  transition:.3s;
 }
-.nav-link-active {
-  background-color: #2563eb; /* 蓝色 */
-  color: white;
+.nav-link-active{
+  background:#2563eb;
+  color:#fff;
 }
 
 /* 子场景按钮 */
-.category-btn {
-  display: inline-block;
-  margin-right: 0.5rem;
-  padding: 0.4rem 1rem;
-  border-radius: 0.375rem;
-  background-color: #f0f0f0;
-  transition: all 0.2s;
+.category-btn{
+  display:inline-block;
+  margin-right:.5rem;
+  padding:.4rem 1rem;
+  border-radius:.375rem;
+  background:#f0f0f0;
+  transition:.2s;
 }
-.category-btn-active {
-  background-color: #2563eb;
-  color: white;
+.category-btn-active{
+  background:#2563eb;
+  color:#fff;
 }
 
 /* 设备卡片 */
-.device-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s;
+.device-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:.5rem;
+  background:#fff;
+  padding:1rem;
+  border-radius:.75rem;
+  box-shadow:0 1px 3px rgba(0,0,0,.1);
+  cursor:pointer;
+  transition:transform .2s,background .2s;
 }
-.device-card:hover {
-  background-color: #e0f2fe;
-  transform: scale(1.03);
+.device-card:hover{
+  background:#e0f2fe;
+  transform:scale(1.05);
 }
-.device-icon {
-  font-size: 1.5rem;
-  color: #2563eb;
+.device-icon{
+  font-size:1.5rem;
+  color:#2563eb;
 }
