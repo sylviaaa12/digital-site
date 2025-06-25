@@ -1,19 +1,17 @@
-/* -------------------------------------------------
-   main.js  ·  数字生活场景前端交互脚本
-   -------------------------------------------------
-   1. 动态注入页面片段（navbar、各场景、modal）
-   2. 解析 products.csv（由 data.js 提供 loadProducts()）
-   3. 主场景 / 子场景切换
-   4. 设备卡片点击 → 弹出产品列表模态框
----------------------------------------------------*/
+// -------------------------------------------------
+// main.js  ·  数字生活场景前端交互脚本
+// -------------------------------------------------
+// 1. 动态注入页面片段（navbar、各场景、modal）
+// 2. 解析 products.csv（由 data.js 提供 loadProducts()）
+// 3. 主场景 / 子场景切换
+// 4. 设备卡片点击 → 弹出产品列表模态框
+// -------------------------------------------------
 
-/* ---------- 0. 片段注入 ---------- */
 async function loadFragment(targetId, url) {
   const res = await fetch(url);
   document.getElementById(targetId).innerHTML = await res.text();
 }
 
-/* 一次性加载所有片段 */
 Promise.all([
   loadFragment('navbar',         'navbar.html'),
   loadFragment('device-modal',   'modal.html'),
@@ -22,25 +20,21 @@ Promise.all([
   loadFragment('scene-city',     'scenes/city.html')
 ]).then(initialize);
 
-/* ---------- 1. 初始化 ---------- */
 async function initialize() {
-  /* 解析 CSV（data.js 中定义 loadProducts，填充全局 productMap） */
   if (typeof loadProducts === 'function') await loadProducts();
 
-  /* 主场景切换 */
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-link-active'));
       link.classList.add('nav-link-active');
 
-      const target = link.dataset.category;               // home / community / city
+      const target = link.dataset.category;
       ['home', 'community', 'city'].forEach(c => {
         document.getElementById(`scene-${c}`).classList.toggle('hidden', c !== target);
       });
     });
   });
 
-  /* 移动端菜单展开/收起 */
   const mobileBtn  = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   if (mobileBtn && mobileMenu) {
@@ -51,48 +45,47 @@ async function initialize() {
     });
   }
 
-  /* 子场景切换（事件委托） */
   document.addEventListener('click', e => {
     if (!e.target.matches('.category-btn')) return;
     const btn = e.target;
-
-    /* 高亮当前按钮 */
     btn.parentElement.querySelectorAll('.category-btn')
        .forEach(b => b.classList.remove('category-btn-active'));
     btn.classList.add('category-btn-active');
 
-    /* 显示对应子场景内容块 */
     const subId = btn.dataset.subcategory;
     btn.closest('section').querySelectorAll('.subcategory-content')
        .forEach(div => div.classList.toggle('hidden', div.id !== subId));
   });
 
-  /* 设备卡片点击（事件委托） */
-  document.addEventListener('click', e => {
-    const card = e.target.closest('.device-card');
-    if (card) showDevice(card.dataset.device);
+  document.querySelectorAll('[data-device-id]').forEach(el => {
+    const id = el.getAttribute('data-device-id');
+    el.classList.add(
+      'device-card',
+      'bg-white', 'rounded-lg', 'p-4', 'shadow-md',
+      'transition', 'transform', 'hover:scale-105',
+      'hover:bg-blue-50', 'cursor-pointer'
+    );
   });
 
-  /* 关闭模态框 */
+  document.addEventListener('click', e => {
+    const card = e.target.closest('.device-card');
+    if (card) showDevice(card.dataset.deviceId || card.dataset.device);
+  });
+
   document.getElementById('device-modal').addEventListener('click', e => {
     if (e.target.id === 'device-modal' || e.target.id === 'closeModal') hideModal();
   });
 }
 
-/* ---------- 2. 模态框逻辑 ---------- */
 function showDevice(deviceId) {
   const modal     = document.getElementById('device-modal');
   const box       = document.getElementById('modalProductList');
   const nameBox   = document.getElementById('modalDeviceName');
   const iconBox   = document.querySelector('#modalDeviceIcon i');
 
-  /* 获取该设备所有产品 */
   const products = (window.productMap && window.productMap[deviceId]) || [];
-
-  /* 顶部设备名称（若 CSV 没有，可用设备 ID 代替） */
   nameBox.textContent = products[0]?.deviceId || deviceId || '未知设备';
 
-  /* 可根据设备类型自定义图标映射，如下简单示例 */
   const iconMap = {
     surveillanceCamera: 'fa-video-camera',
     doorLock:           'fa-lock',
@@ -100,8 +93,7 @@ function showDevice(deviceId) {
   };
   iconBox.className = `fa ${iconMap[deviceId] || 'fa-box-open'} text-4xl text-primary`;
 
-  /* 产品卡片渲染 */
-  box.innerHTML = '';      // 先清空
+  box.innerHTML = '';
   if (products.length === 0) {
     box.innerHTML = `<p class="text-center text-gray-500">当前设备暂无产品信息</p>`;
   } else {
@@ -124,7 +116,6 @@ function showDevice(deviceId) {
     });
   }
 
-  /* 显示模态框（解除透明 + 指针事件） */
   modal.classList.remove('pointer-events-none', 'opacity-0');
   modal.querySelector('.modal-content').classList.add('scale-100');
 }
